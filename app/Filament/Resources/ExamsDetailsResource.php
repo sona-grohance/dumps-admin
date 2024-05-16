@@ -6,13 +6,20 @@ use App\Filament\Resources\ExamsDetailsResource\Pages;
 use App\Filament\Resources\ExamsDetailsResource\RelationManagers;
 use App\Models\ExamDetail;
 use App\Models\ExamsDetails;
+use App\Models\SubCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Ramsey\Collection\Collection as CollectionCollection;
+use App\Models\Category;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Set;
 
 class ExamsDetailsResource extends Resource
 {
@@ -24,15 +31,40 @@ class ExamsDetailsResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('category_id')
+                    ->relationship(name: 'Category', titleAttribute: 'category_name')
+                    ->label('Categories')
+                    ->searchable()
+                    ->preload()
+                    ->live()
+                    ->afterStateUpdated(fn (Set $set) => $set('sub_category_id',null))
+                    ->required(),
+
+                Forms\Components\Select::make('sub_category_id')
+                    ->label('Sub Categories')
+                    ->options(fn (Get $get): Collection => SubCategory::query()
+                    ->where('category_id',$get('category_id'))
+                    ->pluck('name','id'))
+                    ->searchable()
+                    ->preload()
+                    ->live()
+                    ->required(),
+                Forms\Components\TextInput::make('exam_title')
+                    ->label('Exam Title')
+                    ->rules(['required', 'unique:exam_details,exam_title'])
+                    ->required(),
+                
             ]);
-    }
+                    
+                }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('Category.category_name'),
+                Tables\Columns\TextColumn::make('subCategory.name'),
+                Tables\Columns\TextColumn::make('exam_title'),
             ])
             ->filters([
                 //
