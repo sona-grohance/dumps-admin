@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('exam_details', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->string('sub_category');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('sub_category_id');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->string('exam_title');
             $table->timestamps();
         });

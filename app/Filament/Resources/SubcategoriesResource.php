@@ -29,7 +29,12 @@ class SubcategoriesResource extends Resource
     {
         return $form
         ->schema([
+            Forms\Components\Select::make('category_id')
+            ->label('Category')
+            ->options(Category::all()->pluck('category_name', 'id'))
+            ->searchable(),
             Forms\Components\TextInput::make('name')
+            ->label('Sub Category')
             ->required()
             ->live()
             ->afterStateUpdated(function(string $operation, $state,$set){
@@ -38,10 +43,7 @@ class SubcategoriesResource extends Resource
             Forms\Components\TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord:true),
-            Forms\Components\Select::make('category_id')
-                    ->label('Category')
-                    ->options(Category::all()->pluck('category_name', 'id'))
-                    ->searchable(),
+           
          ]);
     }
 
@@ -50,7 +52,7 @@ class SubcategoriesResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('category_id'),
+                Tables\Columns\TextColumn::make('category.category_name'),
                 Tables\Columns\TextColumn::make('slug'),
             ])
             ->filters([

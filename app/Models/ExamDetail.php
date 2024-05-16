@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class ExamDetail extends Model
 {
     use HasFactory;
+    protected $table="exam_details";
+    protected $fillable=[
+        'category_id',
+        'sub_category_id',
+        'exam_title'
+    ];
+    public function Category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
 }

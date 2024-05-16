@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateLogos extends CreateRecord
 {
     protected static string $resource = LogosResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
