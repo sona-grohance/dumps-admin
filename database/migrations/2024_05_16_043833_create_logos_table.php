@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('logos', function (Blueprint $table) {
             $table->id();
+            $table->string('logo_image')->nullable();
             $table->timestamps();
         });
     }

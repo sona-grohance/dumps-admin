@@ -6,9 +6,14 @@ use App\Filament\Resources\LogosResource\Pages;
 use App\Filament\Resources\LogosResource\RelationManagers;
 use App\Models\Logo;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,7 +28,9 @@ class LogosResource extends Resource
     {
         return $form
             ->schema([
-                //
+                FileUpload::make('logo_image')
+                    ->required()
+                    ->label('Logo Image'),
             ]);
     }
 
@@ -31,7 +38,11 @@ class LogosResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
+                ImageColumn::make('logo_image'),
             ])
             ->filters([
                 //
