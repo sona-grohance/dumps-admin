@@ -15,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 
 
@@ -35,11 +36,15 @@ class SubcategoriesResource extends Resource
             ->searchable(),
             Forms\Components\TextInput::make('name')
             ->label('Sub Category')
-            ->required()
             ->live()
-            ->afterStateUpdated(function(string $operation, $state,$set){
-                $set('slug',Str::slug($state));
-            }),
+            ->debounce(250)
+            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+            ->required()
+            ->unique(table: SubCategory::class)
+            ->regex('/^[A-Za-z0-9 ]+$/')
+            ->validationMessages([
+                'regex' => 'Special characters are not allowed.',
+            ]),
             Forms\Components\TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord:true),

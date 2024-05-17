@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Set;
 use Illuminate\Support\Str;
 
 
@@ -32,12 +33,15 @@ class CategoryResource extends Resource
         
            Forms\Components\TextInput::make('category_name')
                     ->label('Category Name')
-                    ->rules(['required', 'unique:categories,category_name'])
-                    ->required()
                     ->live()
-                    ->afterStateUpdated(function(string $operation, $state,$set){
-                        $set('slug',Str::slug($state));
-                    }),
+                    ->debounce(250)
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->unique(table: Category::class)
+                    ->required()
+                    ->regex('/^[A-Za-z0-9 ]+$/')
+                    ->validationMessages([
+                        'regex' => 'Special characters are not allowed.',
+                    ]),
             Forms\Components\TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord:true),
