@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Filament\Tables\Contracts\HasTable;
+
 
 
 
@@ -56,6 +58,10 @@ class SubcategoriesResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('category.category_name'),
                 Tables\Columns\TextColumn::make('slug'),

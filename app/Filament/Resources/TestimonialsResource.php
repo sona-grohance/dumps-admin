@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Column;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Contracts\HasTable;
+
 
 
 class TestimonialsResource extends Resource
@@ -44,6 +46,10 @@ class TestimonialsResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('description'), 
                 ImageColumn::make('image')

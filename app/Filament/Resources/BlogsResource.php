@@ -16,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -60,6 +61,10 @@ class BlogsResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
                 TextColumn::make('title'),
                 TextColumn::make('short_description')
                 ->wrap(),

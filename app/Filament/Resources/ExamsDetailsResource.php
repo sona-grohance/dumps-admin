@@ -20,6 +20,8 @@ use Ramsey\Collection\Collection as CollectionCollection;
 use App\Models\Category;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Set;
+use Filament\Tables\Contracts\HasTable;
+
 
 class ExamsDetailsResource extends Resource
 {
@@ -62,6 +64,10 @@ class ExamsDetailsResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
                 Tables\Columns\TextColumn::make('Category.category_name'),
                 Tables\Columns\TextColumn::make('subCategory.name'),
                 Tables\Columns\TextColumn::make('exam_title'),

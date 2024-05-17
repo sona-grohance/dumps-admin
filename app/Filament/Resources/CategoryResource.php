@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
-
+use Filament\Tables\Contracts\HasTable;
 
 
 
@@ -26,7 +26,6 @@ class CategoryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
-    //shaikh
     {
         return $form
         ->schema([
@@ -53,6 +52,10 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
                 Tables\Columns\TextColumn::make('category_name'),
                 Tables\Columns\TextColumn::make('slug'),
             ])
