@@ -12,7 +12,9 @@ class ExamDetail extends Model
     protected $fillable=[
         'category_id',
         'sub_category_id',
-        'exam_title'
+        'exam_title',
+        'exam_description_1',
+        'exam_description_2'
     ];
     public function Category()
     {

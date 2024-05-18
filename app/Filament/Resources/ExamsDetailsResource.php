@@ -21,6 +21,8 @@ use App\Models\Category;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Set;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Forms\Components\Textarea;
+
 
 
 class ExamsDetailsResource extends Resource
@@ -55,6 +57,10 @@ class ExamsDetailsResource extends Resource
                     ->label('Exam Title')
                     ->rules(['required', 'unique:exam_details,exam_title'])
                     ->required(),
+                Textarea::make('exam_description_1')
+                ->required(),
+                Textarea::make('exam_description_2')
+                ->required(),
                 
             ]);
                     
@@ -71,6 +77,8 @@ class ExamsDetailsResource extends Resource
                 Tables\Columns\TextColumn::make('Category.category_name'),
                 Tables\Columns\TextColumn::make('subCategory.name'),
                 Tables\Columns\TextColumn::make('exam_title'),
+                Tables\Columns\TextColumn::make('exam_description_1'),
+                Tables\Columns\TextColumn::make('exam_description_2'),
             ])
             ->filters([
                 //

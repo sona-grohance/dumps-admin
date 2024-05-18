@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('sub_category_id');
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
             $table->string('exam_title');
+            $table->string('exam_description_1');
+            $table->string('exam_description_2');
             $table->timestamps();
         });
     }
