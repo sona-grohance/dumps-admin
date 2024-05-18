@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Resources\BlogsResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

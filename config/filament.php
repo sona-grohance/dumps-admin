@@ -13,13 +13,7 @@ return [
     | This will allow your users to receive real-time notifications.
     |
     */
-    'widgets' => [
-        // ...
-        'default' => [
-            'account' => false, // Disables the account widget.
-            'info' => false, // Disables the info widget.
-        ],
-    ],
+    
     'broadcasting' => [
 
         // 'echo' => [
