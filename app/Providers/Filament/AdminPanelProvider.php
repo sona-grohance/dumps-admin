@@ -46,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 CategoryWidget::class,
                 
             ])
+            ->brandName('Support Exam')
             ->userMenuItems([
                 MenuItem::make()
                 ->label('Account Settings')
