@@ -1,0 +1,311 @@
+html {
+    font-family: Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+    font-size: 16px;
+    word-spacing: 1px;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+a {
+    text-decoration: none;
+    color: #232323;
+}
+
+.container {
+    position: absolute;
+}
+
+.pc_width {
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 1000px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .pc_width {
+        width: 980px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .pc_width {
+        width: 980px;
+        margin: 0 auto;
+    }
+}
+
+.web-mb-menu-box {
+    margin-top: 80px
+}
+
+.web-mb-menu-home {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #398CF4;
+}
+
+.web-mb-menu {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #999999;
+}
+
+.web-form-box {
+    width: 100%;
+    background: #FFFFFF;
+    border-radius: 10px
+}
+
+.web-form-box .lbox {
+    width: calc(50% - 2px);
+    height: 400px;
+    display: inline-block;
+    padding: 50px 0
+}
+
+.web-form-box .lbox .title {
+    font-size: 24px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #1F2C5B;
+}
+
+.web-form-box .lbox .desc {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.web-form-box .rbox {
+    width: calc(50% - 2px);
+    height: 585px;
+    padding: 40px 50px;
+    float: right;
+    display: inline-block;
+}
+
+.web-form-box .rbox .title {
+    font-size: 24px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #1F2C5B;
+}
+
+.web-form-box .rbox .desc {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.web-form-box .faq-box {
+    padding: 20px 35px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 38px 0px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+
+.web-form-box .faq-box .ask {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #212121;
+}
+
+.web-form-box .faq-box .ask i {
+    float: right;
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    background-image: url(../img/down.png);
+    background-size: 100%;
+}
+
+.web-form-box .faq-box .answer {
+    margin-top: 30px;
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 24px;
+    display: none;
+}
+
+.web-form-box .active i {
+    background-image: url(../img/up.png) !important;
+
+}
+
+.web-form-box .active .answer {
+    display: block;
+}
+
+
+/**
+触屏端
+ */
+.mob-box {
+    padding: 15px;
+}
+
+.mob-mb-menu-box {
+    margin-top: 10px
+}
+
+.mob-mb-menu-home {
+    font-size: 12px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #398CF4;
+}
+
+.mob-mb-menu {
+    font-size: 12px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #999999;
+}
+
+.mob-des {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px
+}
+
+.mob-form-box {
+    width: 100%;
+    background: #fbfbfd;
+    /* box-shadow: 0px 12px 38px 0px rgba(15, 55, 150, 0.05); */
+    border-radius: 10px
+}
+
+.mob-form-box .lbox {
+    width: 100%;
+    background: #FFFFFF;
+    border: 0 solid #F4F5F8;
+    border-radius: 3px;
+    padding: 30px 0px;
+}
+
+.mob-form-box .lbox .title {
+    font-size: 24px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #1F2C5B;
+}
+
+.mob-form-box .lbox .desc {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mob-form-box .rbox {
+    width: 100%;
+    background: #FFFFFF;
+    border: 0 solid #F4F5F8;
+    border-radius: 3px;
+    /* padding: 0px 15px; */
+}
+
+.mob-form-box .rbox .title {
+    font-size: 24px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #1F2C5B;
+}
+
+.mob-form-box .rbox .desc {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mob-form-box .faq-box {
+    padding: 10px 15px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 38px 0px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.mob-form-box .faq-box .ask {
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: bold;
+    color: #212121;
+    min-height: 30px;
+}
+
+.mob-form-box .faq-box .ask span {
+    padding-right: 30px;
+    line-height: 30px;
+}
+
+.mob-form-box .faq-box .ask i {
+    float: right;
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    background-image: url(../img/down.png);
+    background-size: 100%;
+    position: absolute;
+    right: 35px;
+    margin-top: 5px;
+}
+
+.mob-form-box .faq-box .answer {
+    margin-top: 30px;
+    font-size: 16px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #575757;
+    line-height: 24px;
+    display: none;
+}
+
+.mob-form-box .active i {
+    background-image: url(../img/up.png) !important;
+}
+
+.mob-form-box .active .answer {
+    display: block;
+}

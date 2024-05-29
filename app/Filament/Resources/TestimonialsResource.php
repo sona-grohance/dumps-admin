@@ -33,7 +33,7 @@ class TestimonialsResource extends Resource
                 ->label('Name')
                 ->rules(['required', 'unique:testimonials,name'])
                 ->required(),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Textarea::make('description')
                 ->label('Description'),
                 FileUpload::make('image')
                 ->label('Image')
@@ -51,7 +51,7 @@ class TestimonialsResource extends Resource
                         return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
                     }),
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('description'), 
+                Tables\Columns\TextColumn::make('description')->wrap(), 
                 ImageColumn::make('image')
             ])
             ->filters([

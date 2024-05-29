@@ -15,11 +15,18 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedBigInteger('sub_category_id');
+            $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->foreign('sub_category_id')->references('id')->on('sub_categories');
-            $table->string('exam_title');
-            $table->string('exam_description_1');
-            $table->string('exam_description_2');
+            $table->unsignedBigInteger('sub_sub_category_id')->nullable();
+            $table->foreign('sub_sub_category_id')->references('id')->on('sub_sub_categories');
+            $table->text('exam_title');
+            $table->longText('exam_description');
+            $table->string('image')->nullable();
+            $table->string('exam_code')->nullable();
+            $table->string('languages')->nullable();
+            $table->string('exam_fee')->nullable();
+            $table->string('exam_format')->nullable();
+            $table->string('exam_duration')->nullable();
             $table->timestamps();
         });
     }

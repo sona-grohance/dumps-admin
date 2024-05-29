@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Exam;
+use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',Home::class);
+Route::get('/exam/{type}/{slug}',Exam::class)->name('exam');;
 
-// Route::get('/admin/subcategories', function () {
-//     return SubCat::make()->render();
-// })->name('subcategories.index');

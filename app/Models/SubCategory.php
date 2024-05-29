@@ -18,4 +18,18 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function subsubcategories()
+    {
+        return $this->hasMany(SubSubCategory::class);
+    }
+    public function exambanner()
+    {
+        return $this->hasMany(ExamBanner::class);
+    }
+
+    public function examDetail()
+    {
+        return $this->hasMany(ExamDetail::class);
+    }
 }

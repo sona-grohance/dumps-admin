@@ -18,12 +18,15 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Ramsey\Collection\Collection as CollectionCollection;
 use App\Models\Category;
+use App\Models\SubSubCategory;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Set;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Forms\Components\Textarea;
-
-
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 
 class ExamsDetailsResource extends Resource
 {
@@ -52,15 +55,45 @@ class ExamsDetailsResource extends Resource
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->required(),
+                    ->afterStateUpdated(fn (Set $set) => $set('sub_sub_category_id',null)),
+                    Select::make('sub_sub_category_id')
+                    ->label('Sub Sub Categories')
+                    ->options(fn (Get $get): Collection => SubSubCategory::query()
+                    ->where('sub_category_id',$get('sub_category_id'))
+                    ->pluck('name','id'))
+                    ->searchable()
+                    ->preload()
+                    ->live(),
                 Forms\Components\TextInput::make('exam_title')
                     ->label('Exam Title')
-                    ->rules(['required', 'unique:exam_details,exam_title'])
+                    ->required()
+                    ->unique(ignoreRecord: true)
                     ->required(),
-                Textarea::make('exam_description_1')
+                RichEditor::make('exam_description')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'h2',
+                    'h3',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ])
                 ->required(),
-                Textarea::make('exam_description_2')
+                FileUpload::make('image')
                 ->required(),
+                TextInput::make('exam_code'),
+                TextInput::make('languages'),
+                TextInput::make('exam_fee'),
+                TextInput::make('exam_format'),
+                TextInput::make('exam_duration'),
                 
             ]);
                     
@@ -76,9 +109,14 @@ class ExamsDetailsResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('Category.category_name'),
                 Tables\Columns\TextColumn::make('subCategory.name'),
-                Tables\Columns\TextColumn::make('exam_title'),
-                Tables\Columns\TextColumn::make('exam_description_1'),
-                Tables\Columns\TextColumn::make('exam_description_2'),
+                Tables\Columns\TextColumn::make('subSubCategory.name'),
+                ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('exam_title')->limit(30),
+                Tables\Columns\TextColumn::make('exam_description')
+                ->html()
+                ->limit(30),
+                Tables\Columns\TextColumn::make('exam_code'),
+                Tables\Columns\TextColumn::make('exam_fee'),
             ])
             ->filters([
                 //

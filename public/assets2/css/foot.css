@@ -1,0 +1,43 @@
+.footBox {
+    background: #fcfcfc;
+    padding: 26px 20px;
+}
+
+.footBox .rightBox {
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.footBox .rightBox .item {
+    color: #186fc4;
+    margin-right: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 799px) {
+    .footBox {
+        margin-top: 20px;
+        height: 200px;
+        background: #FCFCFC;
+        display: flex;
+    }
+
+    .footBox .pc_width {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .footBox .rightBox {
+        margin-left: 100px;
+        font-size: 15px;
+    }
+
+    .footBox .rightBox .item {
+        color: #186fc4;
+        margin-right: 30px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+}

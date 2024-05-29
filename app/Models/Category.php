@@ -21,4 +21,14 @@ class Category extends Model
     {
         return $this->hasMany(ExamDetail::class);
     }
+
+    public function exambanner()
+    {
+        return $this->hasMany(ExamBanner::class);
+    }
+
+    public function examlists()
+    {
+        return $this->hasMany(ExamList::class);
+    }
 }
