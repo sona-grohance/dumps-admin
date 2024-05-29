@@ -321,6 +321,8 @@
     }
 </style>
 
+@if($exams)
+
 <div class="card-category-2 pc_width">
             
             
@@ -328,22 +330,20 @@
             
             <ul>
                 
-                
+                @foreach($exams as $exam)
                 
                 <li>
                     <div class="img-card iCard-style2">
                         <div class="card-content">
                             <div class="card-image">
                                
-                                <img src="https://resources.reed.co.uk/courses/coursemedia/295888/816a1e4f-fb68-460b-ab78-bc9d4ac40a2c_cover.webp"/>
+                                <img src="{{ asset('storage/' . $exam->image) }}"/>
                             </div>
                             
-                            <span class="card-title">Cisco CCNP</span>
+                            <span class="card-title">{{$exam->category->category_name}}</span>
                             
                             <div class="card-text">
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Image by <a href="https://pixabay.com/users/moonzigg-6341937/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2715461" style="text-decoration: none">moonzigg</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2715461" style="text-decoration: none">Pixabay</a>
-                                </p>
+                                {!! $exam->short_description !!}
                             </div>
                             
                         </div>
@@ -353,57 +353,10 @@
                         </div>
                     </div>                    
                 </li>
-                <li>
-                    <div class="img-card iCard-style2">
-                        <div class="card-content">
-                            <div class="card-image">
-                               
-                                <img src="https://resources.reed.co.uk/courses/coursemedia/295888/816a1e4f-fb68-460b-ab78-bc9d4ac40a2c_cover.webp"/>
-                            </div>
-                            
-                            <span class="card-title">Cisco CCNP</span>
-                            
-                            <div class="card-text">
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Image by <a href="https://pixabay.com/users/moonzigg-6341937/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2715461" style="text-decoration: none">moonzigg</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2715461" style="text-decoration: none">Pixabay</a>
-                                </p>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="card-link">
-                            <a href="#" title="Read Full"><span>Read Full</span></a>
-                        </div>
-                    </div>                    
-                </li>
-                <li>
-                    <div class="img-card iCard-style2">
-                        <div class="card-content">
-                            <div class="card-image">
-                               
-                                <img src="https://resources.reed.co.uk/courses/coursemedia/295888/816a1e4f-fb68-460b-ab78-bc9d4ac40a2c_cover.webp"/>
-                            </div>
-                            
-                            <span class="card-title">Cisco CCNP</span>
-                            
-                            <div class="card-text">
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Image by <a href="https://pixabay.com/users/moonzigg-6341937/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2715461" style="text-decoration: none">moonzigg</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2715461" style="text-decoration: none">Pixabay</a>
-                                </p>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="card-link">
-                            <a href="#" title="Read Full"><span>Read Full</span></a>
-                        </div>
-                    </div>                    
-                </li>
-                
-                
-                
-    
+                @endforeach
                
             </ul>
 
         </div>
+
+        @endif

@@ -17,8 +17,9 @@
     </div>
     <div class="partner">
         <div class="pc_width">
-           
-            <img width="100%" src="https://www.spotoclub.com/static/web/img/a01b981.png" data-src="https://www.spotoclub.com/static/web/img/a01b981.png" class="lozad plogo" alt="Google, Amazon, Microsoft, IBM, Verizon, Alibaba, Dell, Tencent" />
+           @if($logo && $logo->logo_image)
+            <img width="100%" src="{{ asset('storage/' . $logo->logo_image) }}" data-src="{{ asset('storage/' . $logo->logo_image) }}" class="lozad plogo" alt="Google, Amazon, Microsoft, IBM, Verizon, Alibaba, Dell, Tencent" />
+            @endif
         </div>
     </div>
     @include('components.future-exam')

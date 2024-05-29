@@ -2,41 +2,34 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ExamKnowledgeResource\Pages;
-use App\Filament\Resources\ExamKnowledgeResource\RelationManagers;
-use App\Models\ExamDetail;
-use App\Models\ExamKnowledge;
+use App\Filament\Resources\NewsResource\Pages;
+use App\Filament\Resources\NewsResource\RelationManagers;
+use App\Models\News;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ExamKnowledgeResource extends Resource
+class NewsResource extends Resource
 {
-    protected static ?string $model = ExamKnowledge::class;
+    protected static ?string $model = News::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $navigationGroup = "Exam management";
-
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('exam_id')
-                ->label('Exam')
-                ->options(ExamDetail::all()->pluck('exam_code', 'id'))
-                ->searchable(),
-                Forms\Components\Textarea::make('question')
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                RichEditor::make('answer')
+                Forms\Components\TextInput::make('title')
+                ->required(),
+                RichEditor::make('description')
                 ->toolbarButtons([
                     'attachFiles',
                     'blockquote',
@@ -54,18 +47,23 @@ class ExamKnowledgeResource extends Resource
                     'undo',
                 ])
                 ->required(),
-            ]);
+                FileUpload::make('image')
+                ->label('Image')
+                ->required(),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('exam.exam_code'),
-                TextColumn::make('question')->limit(30),
-                TextColumn::make('answer')
-                ->html()
-                ->limit(50),
+                Tables\Columns\TextColumn::make('no')
+                    ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
+                        return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
+                    }),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('description')->wrap()->html(), 
+                ImageColumn::make('image')
             ])
             ->filters([
                 //
@@ -90,9 +88,9 @@ class ExamKnowledgeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListExamKnowledge::route('/'),
-            'create' => Pages\CreateExamKnowledge::route('/create'),
-            'edit' => Pages\EditExamKnowledge::route('/{record}/edit'),
+            'index' => Pages\ListNews::route('/'),
+            'create' => Pages\CreateNews::route('/create'),
+            'edit' => Pages\EditNews::route('/{record}/edit'),
         ];
     }
 }
