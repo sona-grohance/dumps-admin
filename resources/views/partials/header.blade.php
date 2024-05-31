@@ -36,7 +36,13 @@
         @endforeach
 
         <div class="item one_menu">
-            <a href="cisco.php">News</a>
+            <a href="#">News</a>
+            <ul class="two_menu">
+            </ul>
+        </div>
+
+        <div class="item one_menu">
+            <a href="/proxy">Proxy</a>
             <ul class="two_menu">
             </ul>
         </div>

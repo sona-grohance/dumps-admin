@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('exam_fee')->nullable();
             $table->string('exam_format')->nullable();
             $table->string('exam_duration')->nullable();
+            $table->enum('page_type',['category','subcategory','subsubcategory']);
             $table->timestamps();
         });
     }

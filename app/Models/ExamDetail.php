@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Livewire\Exam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,7 @@ class ExamDetail extends Model
         'exam_fee',
         'exam_format',
         'exam_duration',
+        'page_type',
     ];
     public function Category()
     {
@@ -59,5 +61,10 @@ class ExamDetail extends Model
     public function announcements()
     {
         return $this->hasMany(ExamAnnouncement::class,'exam_id');
+    }
+
+    public function banner()
+    {
+        return $this->hasOne(ExamBanner::class,'exam_id')->oldest('created_at');
     }
 }

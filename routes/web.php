@@ -2,6 +2,8 @@
 
 use App\Livewire\Exam;
 use App\Livewire\Home;
+use App\Livewire\Proxy;
+use App\Livewire\ProxyCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',Home::class);
-Route::get('/exam/{type}/{slug}',Exam::class)->name('exam');;
+Route::get('/exam/{type}/{slug}',Exam::class)->name('exam');
+Route::get('/proxy',Proxy::class);
+Route::get('/proxy/{slug}',ProxyCategory::class)->name('proxy');
+
 

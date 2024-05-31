@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ExamBannerResource\Pages;
 use App\Filament\Resources\ExamBannerResource\RelationManagers;
 use App\Models\ExamBanner;
+use App\Models\ExamDetail;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use Filament\Forms;
@@ -35,32 +36,10 @@ class ExamBannerResource extends Resource
     {
         return $form
             ->schema([
-            Forms\Components\Select::make('category_id')
-                ->relationship(name: 'Category', titleAttribute: 'category_name')
-                ->label('Categories')
-                ->searchable()
-                ->preload()
-                ->live()
-                ->afterStateUpdated(fn (Set $set) => $set('sub_category_id',null))
-                ->required(),
-
-            Forms\Components\Select::make('sub_category_id')
-                ->label('Sub Categories')
-                ->options(fn (Get $get): Collection => SubCategory::query()
-                ->where('category_id',$get('category_id'))
-                ->pluck('name','id'))
-                ->searchable()
-                ->preload()
-                ->live()
-                ->afterStateUpdated(fn (Set $set) => $set('sub_sub_category_id',null)),
-                Select::make('sub_sub_category_id')
-                ->label('Sub Sub Categories')
-                ->options(fn (Get $get): Collection => SubSubCategory::query()
-                ->where('sub_category_id',$get('sub_category_id'))
-                ->pluck('name','id'))
-                ->searchable()
-                ->preload()
-                ->live(),
+            Forms\Components\Select::make('exam_id')
+                ->label('Exam')
+                ->options(ExamDetail::all()->pluck('exam_code', 'id'))
+                ->searchable(),
             Forms\Components\TextInput::make('title')
                 ->label('Title')
                 ->rules(['required'])
@@ -112,9 +91,7 @@ class ExamBannerResource extends Resource
                     ->getStateUsing(function ($record, $rowLoop, HasTable $livewire) {
                         return (string) ($rowLoop->iteration + ($livewire->getTableRecordsPerPage() * ($livewire->getTablePage() - 1)));
                     }),
-                Tables\Columns\TextColumn::make('Category.category_name'),
-                Tables\Columns\TextColumn::make('subCategory.name'),
-                Tables\Columns\TextColumn::make('subSubCategory.name'),
+                Tables\Columns\TextColumn::make('exam.exam_title')->limit(30),
                 Tables\Columns\TextColumn::make('title')->wrap(),
                 Tables\Columns\TextColumn::make('description_one')
                 ->html()

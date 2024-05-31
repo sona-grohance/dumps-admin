@@ -349,7 +349,7 @@
                         </div>
                         
                         <div class="card-link">
-                            <a href="#" title="Read Full"><span>Read Full</span></a>
+                            <a href="{{route('exam', ['type' => 'category', 'slug' => $exam->category->slug])}}" title="Read Full"><span>Read Full</span></a>
                         </div>
                     </div>                    
                 </li>

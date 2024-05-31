@@ -1,51 +1,49 @@
 <div>
     <div class="banner_bg" style="padding-top: 25px;">
-        @if($banner)
+        @if($examDetail)
         <div class="banner_div pc_width">
             <div class="course-landing-page__main-content course-landing-page__topic-menu dark-background-inner-text-container">
                 <div class="topic-menu topic-menu-condensed udlite-breadcrumb">
                     <a class="udlite-heading-sm" href="/">Home</a>
                                         <strong>></strong>
-                                        <a href="#" class="udlite-heading-sm">{!! $banner->category->category_name ?? ' ' !!}</a>
+                                        <a href="#" class="udlite-heading-sm">{!! $examDetail->category->category_name ?? ' ' !!}</a>
                                         @if ($type == "subcategory")
                                         <strong>></strong>
-                                        <a class="udlite-heading-sm">{!! $banner->subcategory->name ?? ' ' !!}</a>
+                                        <a class="udlite-heading-sm">{!! $examDetail->subcategory->name ?? ' ' !!}</a>
                                         @endif
                                         @if ($type == "subsubcategory")
                                         <strong>></strong>
-                                        <a class="udlite-heading-sm">{!! $banner->subcategory->name ?? ' ' !!}</a>
-                                        <strong>></strong>{!! $banner->subsubcategory->name ?? ' ' !!}</a>
+                                        <a class="udlite-heading-sm">{!! $examDetail->subcategory->name ?? ' ' !!}</a>
+                                        <strong>></strong>{!! $examDetail->subsubcategory->name ?? ' ' !!}</a>
                                         @endif
                                                             
                                                         </div>
             </div>
 
-            <h1 class="banner_tit">{!!$banner->title ?? '&#8210;'!!}</h1>
+            @if($examDetail && $examDetail->banner)
+            <h1 class="banner_tit">{!!$examDetail->banner->title ?? '&#8210;'!!}</h1>
 
                         <div class="banner_btnlist">
                 <div class="uldiv">
-                    @if($banner)
-                    @foreach (explode("<p>", $banner->description_one) as $line)
+                    @foreach (explode("<p>", $examDetail->banner->description_one) as $line)
                         @if (!empty(trim($line)))
                         <div class="lidiv">
                             <i class="fas fa-check icon"></i>{!! $line !!}
                         </div>
                     @endif
                     @endforeach
-                    @endif
                                     </div>
                 <div class="uldiv">
-                    @if($banner)
-                    @foreach (explode("<p>", $banner->description_two) as $line)
+                    @foreach (explode("<p>", $examDetail->banner->description_two) as $line)
                         @if (!empty(trim($line)))
                         <div class="lidiv">
                             <i class="fas fa-check icon"></i>{!! $line !!}
                         </div>
                     @endif
                     @endforeach
-                    @endif
-                                    </div>
+                </div>
             </div>
+            @endif
                         <div class="desc">
                 <a href="" class="banner_btn pointer"
                    rel="nofollow noopener" target="">Get 100% Pass Dumps</a>
@@ -104,6 +102,15 @@
     <div class="pc_width">
     <i class="notice"></i>
     <ul id="demo_0" class="_container n_pc" >
+        @foreach ($examDetail->announcements->chunk(3) as $chunk)
+        <li>
+            @foreach ($chunk as $notice)
+            <div><span class="name">{!! $notice->title_one ?? '' !!}</span><span class="timer">{!! $notice->date ?? '' !!}</span><span>{!! $notice->title_two ?? '' !!}</span></div>
+            @endforeach
+        </li>
+        @endforeach
+    </ul>
+    <ul id="demo_1" class="_container n_mb" >
         @foreach ($examDetail->announcements->chunk(3) as $chunk)
         <li>
             @foreach ($chunk as $notice)
@@ -174,7 +181,7 @@
     @endif
     <!-- 建议模块 end-->
         <!-- faq -->
-        @if ($examDetail && $examDetail->knowledge)
+    @if ($examDetail && $examDetail->knowledge)
             
     <h2 class="Information">Some knowledge you should know about {!! $examDetail->exam_code ?? '&#8210;' !!} exam</h2>
     <div class="questionBox pc_width">
@@ -373,10 +380,8 @@
                                   
                                   
                                 </div>
-    </div>
-    @endif
-    
-
+                            </div>
+                            @endif
 
 </div>
 

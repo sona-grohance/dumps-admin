@@ -30,7 +30,7 @@ class CategoryResource extends Resource
         return $form
         ->schema([
         
-           Forms\Components\TextInput::make('category_name')
+           Forms\Components\TextInput::make('category')
                     ->label('Category Name')
                     ->live()
                     ->debounce(250)

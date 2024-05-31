@@ -13,12 +13,8 @@ return new class extends Migration
     {
         Schema::create('exam_banners', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedBigInteger('sub_category_id')->nullable();
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
-            $table->unsignedBigInteger('sub_sub_category_id')->nullable();
-            $table->foreign('sub_sub_category_id')->references('id')->on('sub_sub_categories');
+            $table->unsignedBigInteger('exam_id');
+            $table->foreign('exam_id')->references('id')->on('exam_details');
             $table->text('title');
             $table->longText('description_one')->nullable();
             $table->longText('description_two')->nullable();

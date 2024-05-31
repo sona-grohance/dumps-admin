@@ -47,23 +47,23 @@ class ExamsDetailsResource extends Resource
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->afterStateUpdated(fn (Set $set) => $set('sub_category_id',null))
+                    ->afterStateUpdated(fn (Set $set) => $set('sub_category_id', null))
                     ->required(),
 
                 Forms\Components\Select::make('sub_category_id')
                     ->label('Sub Categories')
                     ->options(fn (Get $get): Collection => SubCategory::query()
-                    ->where('category_id',$get('category_id'))
-                    ->pluck('name','id'))
+                        ->where('category_id', $get('category_id'))
+                        ->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live()
-                    ->afterStateUpdated(fn (Set $set) => $set('sub_sub_category_id',null)),
-                    Select::make('sub_sub_category_id')
+                    ->afterStateUpdated(fn (Set $set) => $set('sub_sub_category_id', null)),
+                Select::make('sub_sub_category_id')
                     ->label('Sub Sub Categories')
                     ->options(fn (Get $get): Collection => SubSubCategory::query()
-                    ->where('sub_category_id',$get('sub_category_id'))
-                    ->pluck('name','id'))
+                        ->where('sub_category_id', $get('sub_category_id'))
+                        ->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->live(),
@@ -73,34 +73,38 @@ class ExamsDetailsResource extends Resource
                     ->unique(ignoreRecord: true)
                     ->required(),
                 RichEditor::make('exam_description')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'h2',
-                    'h3',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ])
-                ->required(),
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'underline',
+                        'undo',
+                    ])
+                    ->required(),
                 FileUpload::make('image')
-                ->required(),
+                    ->required(),
                 TextInput::make('exam_code'),
                 TextInput::make('languages'),
                 TextInput::make('exam_fee'),
                 TextInput::make('exam_format'),
                 TextInput::make('exam_duration'),
-                
+                Select::make('page_type')
+                    ->options([
+                        'category' => 'Category',
+                        'subcategory' => 'Sub Category',
+                        'subsubcategory' => 'Sub Sub Category',
+                    ])->required(),
             ]);
-                    
-                }
+    }
 
     public static function table(Table $table): Table
     {
@@ -114,12 +118,13 @@ class ExamsDetailsResource extends Resource
                 Tables\Columns\TextColumn::make('subCategory.name'),
                 Tables\Columns\TextColumn::make('subSubCategory.name'),
                 ImageColumn::make('image'),
-                Tables\Columns\TextColumn::make('exam_title')->limit(30),
+                Tables\Columns\TextColumn::make('exam_title')->limit(20),
                 Tables\Columns\TextColumn::make('exam_description')
-                ->html()
-                ->limit(30),
+                    ->html()
+                    ->limit(20),
                 Tables\Columns\TextColumn::make('exam_code'),
                 Tables\Columns\TextColumn::make('exam_fee'),
+                Tables\Columns\TextColumn::make('page_type'),
             ])
             ->filters([
                 //
